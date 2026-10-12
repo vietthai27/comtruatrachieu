@@ -1,0 +1,18 @@
+body { font-family: system-ui, sans-serif; margin: 0; background: #f5f6f8; color: #222; }
+main { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+input { width: 100%; padding: 10px 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 8px; }
+th, td { padding: 8px 12px; border-bottom: 1px solid #eee; text-align: left; }
+img { max-width: 100px; object-fit: contain; }
+.error { color: #c00; }
+.count { color: #666; }
+nav { display: flex; gap: 8px; margin-bottom: 16px; }
+button { padding: 8px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fff; cursor: pointer; font-size: 15px; }
+button.active { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+.qr-layout { display: flex; gap: 32px; flex-wrap: wrap; }
+form { display: flex; flex-direction: column; gap: 12px; flex: 1 1 320px; max-width: 420px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+select { padding: 10px 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 6px; }
+form > button { background: #1a73e8; color: #fff; border-color: #1a73e8; }
+.qr-result { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.qr-result img { max-width: 360px; width: 100%; }
