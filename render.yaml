@@ -1,6 +1,6 @@
 # Render Blueprint cho frontend (static site). Trên Render: New + -> Blueprint -> chọn repo này.
-# /api/* được rewrite (proxy) sang backend trên Fly.io nên FE vẫn gọi /api cùng domain, không cần CORS.
-# Đổi destination nếu tên app Fly.io khác "comtruatrachieu-api".
+# FE gọi thẳng backend https://comtruatrachieu-api.fly.dev (VITE_API_URL trong .env.production);
+# backend đã mở CORS (APP_CORS_ALLOWED_ORIGINS mặc định "*").
 services:
   - type: web
     name: comtruatrachieu
@@ -11,13 +11,6 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "22"
-      # Tuỳ chọn: gọi thẳng backend thay vì qua rewrite (khi đó đặt APP_CORS_ALLOWED_ORIGINS trên Fly.io = domain Render)
-      # - key: VITE_API_URL
-      #   value: https://comtruatrachieu-api.fly.dev
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: https://comtruatrachieu-api.fly.dev/api/*
     headers:
       # file trong assets/ có hash trong tên -> cache lâu được
       - path: /assets/*

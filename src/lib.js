@@ -29,8 +29,8 @@ export async function generateQr({ fullName, bankBin, accountNo }, amount, note)
   return json.data.qrDataURL
 }
 
-// Địa chỉ backend. Mặc định rỗng = gọi /api cùng domain (Vite proxy khi dev, rewrite của Render khi deploy).
-// Đặt VITE_API_URL lúc build (vd. https://comtruatrachieu-api.fly.dev) để gọi thẳng backend — khi đó cần mở CORS cho domain FE.
+// Địa chỉ backend. Rỗng = gọi /api cùng domain (Vite proxy khi dev, Docker gộp FE+BE).
+// Bản build deploy lấy VITE_API_URL từ .env.production (backend trên Fly.io, đã mở CORS).
 const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/+$/, '')
 
 // ---- đăng nhập: token JWT lưu trong localStorage ----
