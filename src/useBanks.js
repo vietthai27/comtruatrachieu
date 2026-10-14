@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'react-toastify'
+import { api } from './lib.js'
 
 /** Danh sách ngân hàng VietQR + map tra theo BIN. */
 export default function useBanks() {
   const [banks, setBanks] = useState([])
 
   useEffect(() => {
-    fetch('/api/banks')
-      .then((r) => r.json())
+    api('/api/banks')
       .then((j) => setBanks(j.data ?? []))
       .catch(() => toast.error('Không tải được danh sách ngân hàng'))
   }, [])

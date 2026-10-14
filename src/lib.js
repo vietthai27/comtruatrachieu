@@ -29,6 +29,10 @@ export async function generateQr({ fullName, bankBin, accountNo }, amount, note)
   return json.data.qrDataURL
 }
 
+// Địa chỉ backend. Mặc định rỗng = gọi /api cùng domain (Vite proxy khi dev, rewrite của Render khi deploy).
+// Đặt VITE_API_URL lúc build (vd. https://comtruatrachieu-api.fly.dev) để gọi thẳng backend — khi đó cần mở CORS cho domain FE.
+const API_BASE = (import.meta.env.VITE_API_URL ?? '').replace(/\/+$/, '')
+
 // ---- đăng nhập: token JWT lưu trong localStorage ----
 const TOKEN_KEY = 'auth_token'
 export const LOGOUT_EVENT = 'auth:logout'
@@ -47,7 +51,7 @@ export const setToken = (token) => {
 /** fetch JSON kèm token, ném lỗi với message từ BE ({"message": ...}) nếu không OK. 401 = tự đăng xuất. */
 export async function api(url, options = {}) {
   const token = getToken()
-  const res = await fetch(url, {
+  const res = await fetch(API_BASE + url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',

@@ -1,0 +1,29 @@
+# Render Blueprint cho frontend (static site). Trên Render: New + -> Blueprint -> chọn repo này.
+# /api/* được rewrite (proxy) sang backend trên Fly.io nên FE vẫn gọi /api cùng domain, không cần CORS.
+# Đổi destination nếu tên app Fly.io khác "comtruatrachieu-api".
+services:
+  - type: web
+    name: comtruatrachieu
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Tuỳ chọn: gọi thẳng backend thay vì qua rewrite (khi đó đặt APP_CORS_ALLOWED_ORIGINS trên Fly.io = domain Render)
+      # - key: VITE_API_URL
+      #   value: https://comtruatrachieu-api.fly.dev
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://comtruatrachieu-api.fly.dev/api/*
+    headers:
+      # file trong assets/ có hash trong tên -> cache lâu được
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # index.html luôn lấy bản mới để nhận bản build mới
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache

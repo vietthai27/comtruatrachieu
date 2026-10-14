@@ -26,8 +26,7 @@ export default function Members({ me }) {
 
   useEffect(() => {
     load()
-    fetch('/api/banks')
-      .then((r) => r.json())
+    api('/api/banks')
       .then((j) => setBanks(j.data ?? []))
       .catch(() => toast.error('Không tải được danh sách ngân hàng'))
   }, [])
