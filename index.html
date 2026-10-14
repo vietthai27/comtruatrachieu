@@ -2,8 +2,20 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danh sách ngân hàng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f2f3f7" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Cơm trưa trà chiều</title>
+    <script>
+      // Đặt theme trước khi React chạy để không bị nháy nền trắng (logic giống src/theme.js)
+      (function () {
+        var t = null
+        try { t = localStorage.getItem('theme') } catch (e) {}
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = t
+        if (t === 'dark') document.querySelector('meta[name=theme-color]').setAttribute('content', '#121316')
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
